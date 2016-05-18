@@ -3,7 +3,7 @@ micropython-bmp180
 
 Module bmp180
 -----------------
-bmp180 is a micropython module for the Bosch BMP180 sensor. It measures
+bmp180 is a esp8266 micropython module for the Bosch BMP180 sensor. It measures
 temperature as well as pressure, with a high enough resolution to calculate
 altitude.  
 Breakoutboard: http://www.adafruit.com/products/1603  
@@ -11,22 +11,15 @@ data-sheet: http://ae-bst.resource.bosch.com/media/products/dokumente/bmp180/BST
 
 If you have any questions, open an issue.
 
-### Wiring the sensor to the pyboard
-
-| pyboard| bmp180 |
-|:------:|:------:|
-| VIN    | VIN    |
-| 3V3    | 3Vo    |
-| GND    | GND    |
-| SCL    | SCL    |
-| SDA    | SDA    |
-
 ### Quickstart
 
 Example:
 ```python
+from machine import Pin, I2C
 from bmp180 import BMP180
-bmp180 = BMP180()
+
+i2c = I2C(scl=Pin(5), sda=Pin(4))
+bmp180 = BMP180(i2c)
 bmp180.oversample_sett = 2
 bmp180.baseline = 101325
 
